@@ -1,0 +1,101 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{amsmath}
+
+\usetheme{Madrid}
+
+\title{Cuantificación: Estimación de Prevalencias por Clase}
+\subtitle{Taller práctico}
+\author{[Pablo González, Olaya Pérez-Mon]}
+\institute{[Universidad de Oviedo]}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% 1. Introducción
+\begin{frame}{Objetivo del taller}
+\begin{itemize}
+    \item Poner en práctica los conceptos vistos en la sesión teórica: \textit{\textbf{Cuantificación}, estimación de prevalencias por clase mediante aprendizaje supervisado.}
+    \item Entender cuando necesitamos la cuantificación.
+    \item Introducir herramientas para implementar cuantificadores de forma sencilla (quantificationlib).
+    \item Aprender a entrenar cuantificadores y evaluarlos.
+\end{itemize}
+\end{frame}
+
+% 2. Introducción a la cuantificación
+\begin{frame}{¿Qué es la cuantificación?}
+\begin{itemize}
+    \item En lugar de predecir etiquetas individuales, queremos estimar \textbf{la proporción de ejemplos por clase} en una \textbf{bag} de ejemplos no etiquetada.
+    \item Ejemplo: estimar qué porcentaje de opiniones sobre un producto en Amazon son positivas, sin etiquetarlas una a una.
+    \item Otras aplicaciones: control de calidad, análisis de opinión, medicina, biología, etc.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Asunción de cambio de distribución}
+\begin{itemize}
+    \item Suponemos que existe un \textbf{cambio de distribución} entre los datos de entrenamiento y los de test, concretatemente \textbf{Prior Probability Shift}:
+    \[
+    p_{\text{train}}(x \mid y) = p_{\text{test}}(x \mid y) \quad \text{pero} \quad p_{\text{train}}(y) \neq p_{\text{test}}(y)
+    \]
+    \item Es decir: cambia la prevalencia de las clases, pero no el concepto de como son los ejemplos de cada clase.
+\end{itemize}
+\end{frame}
+
+% 3. Dataset
+\begin{frame}{Dataset: Amazon Reviews (LeQua)}
+\begin{itemize}
+    \item Opiniones de productos en Amazon.
+    \item Dos clases: \textbf{positivas} y \textbf{negativas}.
+    \item Se han preprocesado y convertido a vectores (bag-of-words o embeddings).
+    \item Cada bolsa contiene un conjunto de opiniones con una distribución concreta de clases.
+\end{itemize}
+\begin{block}{Opinión positiva}
+    \small
+    \emph{“Me encanta este producto, llegó rápido y es de muy buena calidad. Lo recomiendo sin duda.”}
+    \end{block}
+    
+    \begin{block}{Opinión negativa}
+    \small
+    \emph{“El producto no funcionaba, muy mala experiencia. No lo volveré a comprar.”}
+    \end{block}
+\end{frame}
+
+
+% 4. Quantificationlib
+\begin{frame}{¿Qué es quantificationlib?}
+\begin{itemize}
+    \item Librería Python para cuantificación: \url{https://github.com/AICGijon/quantificationlib}
+    \item Proporciona implementaciones de los cuantificadores más relevantes:
+    \begin{itemize}
+        \item \textbf{CC}: Classify & Count (solución trivial).
+        \item \textbf{AC}: Adjusted Count.
+        \item \textbf{DFy}: Métodos basados en ajuste de distribuciones.
+        \item \textbf{EMQ}: Expectation Maximization.
+    \end{itemize}
+    \item Permite entrenar y evaluar cuantificadores de forma sencilla.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Resumen del taller}
+\begin{itemize}
+    \item Explorar distintas estrategias de cuantificación.
+    \item Evaluar su rendimiento bajo distintos cambios de distribución.
+    \item Usar un dataset real y una herramienta práctica: \texttt{quantificationlib}.
+    \item Comparar con soluciones triviales con cuantificadores más complejos y evaluar sus diferencias.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{¡Manos a la obra!}
+\centering
+\Large
+Abramos el notebook: \\
+\url{https://colab.research.google.com/github/pglez82/quantificationlib_lab/blob/master/lab/lab.ipynb}
+\end{frame}
+
+\end{document}
