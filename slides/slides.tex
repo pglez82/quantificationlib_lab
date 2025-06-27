@@ -14,18 +14,26 @@
 \institute{[Universidad de Oviedo]}
 \date{\today}
 
+\setbeamertemplate{footline}{}
 \begin{document}
 
-\frame{\titlepage}
+\begin{frame}
+    \titlepage
+    \vfill
+    \centering
+    \includegraphics[width=0.3\textwidth]{images/logo.png} % Replace with your image path
+\end{frame}
 
 % 1. Introducción
-\begin{frame}{Objetivo del taller}
+\begin{frame}{Objetivos del taller}
 \begin{itemize}
-    \item Poner en práctica los conceptos vistos en la sesión teórica: \textit{\textbf{Cuantificación}, estimación de prevalencias por clase mediante aprendizaje supervisado.}
-    \item Entender cuando necesitamos la cuantificación.
+    \item Poner en práctica los conceptos vistos en la sesión teórica: \textit{Cuantificación, estimación de prevalencias por clase mediante aprendizaje supervisado.}
+    \item Entender cuando necesitamos la cuantificación desde un enfoque práctico.
     \item Introducir herramientas para implementar cuantificadores de forma sencilla (quantificationlib).
-    \item Aprender a entrenar cuantificadores y evaluarlos.
+    \item Aprender a entrenar cuantificadores y evaluarlos correctamente.
 \end{itemize}
+\centering
+\includegraphics[scale=0.2]{images/objetivos.png}
 \end{frame}
 
 % 2. Introducción a la cuantificación
@@ -35,14 +43,19 @@
     \item Ejemplo: estimar qué porcentaje de opiniones sobre un producto en Amazon son positivas, sin etiquetarlas una a una.
     \item Otras aplicaciones: control de calidad, análisis de opinión, medicina, biología, etc.
 \end{itemize}
+\centering
+\includegraphics[scale=0.13]{images/quantificaiton.png}
 \end{frame}
 
 \begin{frame}{Asunción de cambio de distribución}
 \begin{itemize}
     \item Suponemos que existe un \textbf{cambio de distribución} entre los datos de entrenamiento y los de test, concretatemente \textbf{Prior Probability Shift}:
-    \[
-    p_{\text{train}}(x \mid y) = p_{\text{test}}(x \mid y) \quad \text{pero} \quad p_{\text{train}}(y) \neq p_{\text{test}}(y)
-    \]
+    \begin{equation}
+        p_{\text{train}}(x \mid y) = p_{\text{test}}(x \mid y)
+    \end{equation}
+    \begin{equation}
+        p_{\text{train}}(y) \neq p_{\text{test}}(y)
+    \end{equation}
     \item Es decir: cambia la prevalencia de las clases, pero no el concepto de como son los ejemplos de cada clase.
 \end{itemize}
 \end{frame}
@@ -73,21 +86,12 @@
     \item Librería Python para cuantificación: \url{https://github.com/AICGijon/quantificationlib}
     \item Proporciona implementaciones de los cuantificadores más relevantes:
     \begin{itemize}
-        \item \textbf{CC}: Classify & Count (solución trivial).
+        \item \textbf{CC}: Classify \& Count (solución trivial).
         \item \textbf{AC}: Adjusted Count.
         \item \textbf{DFy}: Métodos basados en ajuste de distribuciones.
         \item \textbf{EMQ}: Expectation Maximization.
     \end{itemize}
     \item Permite entrenar y evaluar cuantificadores de forma sencilla.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Resumen del taller}
-\begin{itemize}
-    \item Explorar distintas estrategias de cuantificación.
-    \item Evaluar su rendimiento bajo distintos cambios de distribución.
-    \item Usar un dataset real y una herramienta práctica: \texttt{quantificationlib}.
-    \item Comparar con soluciones triviales con cuantificadores más complejos y evaluar sus diferencias.
 \end{itemize}
 \end{frame}
 
