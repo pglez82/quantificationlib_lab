@@ -1,4 +1,4 @@
-.env
+.venv
 T1.train_dev
 T1.train_dev.zip
 *.toc

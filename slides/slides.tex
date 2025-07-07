@@ -21,15 +21,22 @@
     \titlepage
     \vfill
     \centering
-    \includegraphics[width=0.3\textwidth]{images/logo.png} % Replace with your image path
+    \begin{minipage}[c]{0.3\textwidth}
+        \includegraphics[width=\linewidth]{images/logo.png}
+    \end{minipage}
+    \hspace{1cm}
+    \begin{minipage}[c]{0.3\textwidth}
+        \includegraphics[width=\linewidth]{images/aepia.png}
+    \end{minipage}
 \end{frame}
+
 
 % 1. Introducción
 \begin{frame}{Objetivos del taller}
 \begin{itemize}
     \item Poner en práctica los conceptos vistos en la sesión teórica: \textit{Cuantificación, estimación de prevalencias por clase mediante aprendizaje supervisado.}
     \item Entender cuando necesitamos la cuantificación desde un enfoque práctico.
-    \item Introducir herramientas para implementar cuantificadores de forma sencilla (quantificationlib).
+    \item Introducir herramientas para implementar cuantificadores de forma sencilla (\href{https://github.com/AICGijon/quantificationlib}{quantificationlib}).
     \item Aprender a entrenar cuantificadores y evaluarlos correctamente.
 \end{itemize}
 \centering
@@ -48,16 +55,26 @@
 \end{frame}
 
 \begin{frame}{Asunción de cambio de distribución}
-\begin{itemize}
-    \item Suponemos que existe un \textbf{cambio de distribución} entre los datos de entrenamiento y los de test, concretatemente \textbf{Prior Probability Shift}:
-    \begin{equation}
-        p_{\text{train}}(x \mid y) = p_{\text{test}}(x \mid y)
-    \end{equation}
-    \begin{equation}
-        p_{\text{train}}(y) \neq p_{\text{test}}(y)
-    \end{equation}
-    \item Es decir: cambia la prevalencia de las clases, pero no el concepto de como son los ejemplos de cada clase.
-\end{itemize}
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+        \begin{itemize}
+            \item Suponemos que existe un \textbf{cambio de distribución} entre los datos de entrenamiento y los de test, concretamente \textbf{Prior Probability Shift}:
+            \begin{equation}
+                p_{\text{train}}(x \mid y) = p_{\text{test}}(x \mid y)
+            \end{equation}
+            \begin{equation}
+                p_{\text{train}}(y) \neq p_{\text{test}}(y)
+            \end{equation}
+            \item Es decir: cambia la prevalencia de las clases, pero no el concepto de cómo son los ejemplos de cada clase.
+        \end{itemize}
+    \end{column}
+    \begin{column}{0.1\textwidth}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/pps.png} 
+    \end{column}
+\end{columns}
 \end{frame}
 
 % 3. Dataset
@@ -65,8 +82,13 @@
 \begin{itemize}
     \item Opiniones de productos en Amazon.
     \item Dos clases: \textbf{positivas} y \textbf{negativas}.
-    \item Se han preprocesado y convertido a vectores (bag-of-words o embeddings).
-    \item Cada bolsa contiene un conjunto de opiniones con una distribución concreta de clases.
+    \item Se han preprocesado y convertido a vectores con 250 características por cada opinión (bag-of-words o embeddings).
+    \item Conjunto de entrenamiento etiquetado individualmente con \textbf{5000 opiniones}.
+    \item Conjunto de validación para probar nuestros cuantificadores con \textbf{1000 bolsas} con \textbf{250 opiniones} cada una.
+    \begin{itemize}
+        \item Cada bolsa contiene un conjunto de opiniones con una distribución concreta de clases.
+        \item No disponemos de las etiquetas individuales de cada opinión.
+    \end{itemize}
 \end{itemize}
 \begin{block}{Opinión positiva}
     \small
@@ -90,15 +112,19 @@
         \item \textbf{AC}: Adjusted Count.
         \item \textbf{DFy}: Métodos basados en ajuste de distribuciones.
         \item \textbf{EMQ}: Expectation Maximization.
+        \item ...
     \end{itemize}
     \item Permite entrenar y evaluar cuantificadores de forma sencilla.
 \end{itemize}
+\centering
+%add vertical space
+\vspace{0.5cm}
+\includegraphics[width=0.6\linewidth]{images/python.png}
 \end{frame}
 
 \begin{frame}{¡Manos a la obra!}
 \centering
 \Large
-Abramos el notebook: \\
 \url{https://colab.research.google.com/github/pglez82/quantificationlib_lab/blob/master/lab/lab.ipynb}
 \end{frame}
 
